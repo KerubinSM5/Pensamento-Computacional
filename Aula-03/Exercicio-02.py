@@ -25,4 +25,4 @@ elif mp < 9:
 else:
     mencao = 'SS'
 
-print('Sua menção é', mencao)
+print('Sua menção é: ', mencao)
