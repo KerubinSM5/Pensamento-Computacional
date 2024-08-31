@@ -32,7 +32,7 @@ def input_int(msg, minimo, maximo): #limita as possibilidades de valores inteiro
     while receber:
         entrada = input_texto(msg)
 
-        if not sao_digitos(entrada): #
+        if not sao_digitos(entrada): #informa digitos inteiros*
             print("Digito não inteiro")
         else:
             numero = int(entrada)
