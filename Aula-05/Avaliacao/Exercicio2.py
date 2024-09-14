@@ -17,7 +17,7 @@ p.add_run(carga).bold = True
 p.add_run(' horas.')
 
 tab = doc.add_table(rows=1, cols=2)
-tab.style="Colorful Grid Accent 3"
+tab.style="Colorful Grid Accent 5"
 cels = tab.rows[0].cells
 cels[0].text = 'Número'
 cels[0].width = 5
