@@ -26,7 +26,7 @@ Este repositório em Python é utilizado para armazenar códigos de aulas anteri
 
  Pycharm: IDE recomendada para facilitar o desenvolvimento e execução do projeto.
 
- Projeto realizado no windows 11
+ Projeto realizado no windows 10
 
 2. ### Links para download: 
     ### [Python](https://www.python.org/downloads/release/python-3127/))
@@ -37,7 +37,7 @@ Este repositório em Python é utilizado para armazenar códigos de aulas anteri
 
 * Em um terminal ou diretamente pelo IntelliJ, clone o repositório do projeto:
 
-* git clone https://github.com/Efledoscorre/Pens-comp
+* git clone https://github.com/KerubinSM5/Pens-comp
   
 ### importe o projeto no Pycharm:
 
