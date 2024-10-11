@@ -125,7 +125,7 @@ class Calculadora:
            term2 = int(self.term2.get())
            if self.operator_var.get() == '/':
                result = term1 / term2
-           elif self.operator_var.get() == '*':
+           elif self.operator_var.get() == 'x':
                result = term1 * term2
            elif self.operator_var.get() == '+':
                result = term1 + term2
