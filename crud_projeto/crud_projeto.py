@@ -4,7 +4,6 @@ from tkinter import messagebox
 from util.db import SQL
 from c_projeto import IncluirProjeto
 
-
 class CRUDProjeto(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -70,12 +69,12 @@ class CRUDProjeto(tk.Tk):
 
         self.limpar_tabela()
         for funcao in funcoes:
-            #valor_formatado = f"R$ {funcao['vlr_dia_funcao']:,.2f}"
             if funcao['dta_fim_projeto'] == None:
                 data_fim = "Nada"
             else:
                 data_fim = funcao['dta_fim_projeto']
             self.tre_funcoes.insert("", tk.END, values=(funcao['idt_projeto'], funcao['nme_projeto'], funcao['dta_ini_projeto'], data_fim))
+
 
     def pegar_idt(self):
         selecao = self.tre_funcoes.selection()

@@ -1,11 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, IntVar, Checkbutton
 from tkinter import messagebox
 
 import dateconverter
 
 import util.validate as val
 from tkcalendar import DateEntry
+
+from datetime import datetime
 
 class IncluirProjeto:
     def __init__(self, janela_mestre):
@@ -33,21 +35,21 @@ class IncluirProjeto:
         self.et_nome.grid(row=1, column=1, columnspan=2, padx=PADX, pady=PADY)
 
         # Terceira linha - Receber a data do projeto
-        lb_valor = tk.Label(self.popup, text="Data inicial do projeto (ano/mês/dia)", font='Helvetica 12 bold', fg='blue')
+        lb_valor = tk.Label(self.popup, text="Data inicial do projeto", font='Helvetica 12 bold', fg='blue')
         lb_valor.grid(row=2, column=0, padx=PADX, pady=PADY)
 
-        lb_valor2 = tk.Label(self.popup, text="Data final do projeto (ano/mês/dia)", font='Helvetica 12 bold', fg='blue')
+        lb_valor2 = tk.Label(self.popup, text="Data final do projeto (vazio para nulo)", font='Helvetica 12 bold', fg='blue')
         lb_valor2.grid(row=3, column=0, padx=PADX, pady=PADY)
 
         self.valor_var = tk.StringVar()
         self.et_valor = DateEntry(self.popup, textvariable=self.valor_var, font='Helvetica 16 bold', foreground='green',
-                                  width=10, date_pattern='yyyy/mm/dd')
+                                  width=10, date_pattern='dd/mm/yyyy', date_format='%d/%m/%Y')
         self.obrigatorios.append([self.et_valor, lb_valor.cget('text')])
         self.et_valor.grid(row=2, column=1, columnspan=2, padx=PADX, pady=PADY, sticky="W")
 
         self.valor_var2 = tk.StringVar()
         self.et_valor2 = DateEntry(self.popup, textvariable=self.valor_var2, font='Helvetica 16 bold', foreground='green',
-                                   width=10, date_pattern='yyyy/mm/dd')
+                                   width=10, date_pattern='dd/mm/yyyy', date_format='%d/%m/%Y')
         self.et_valor2.grid(row=3, column=1, columnspan=2, padx=PADX, pady=PADY, sticky="W")
 
         # Quarta linha - Botão para incluir uma nova função
@@ -64,16 +66,17 @@ class IncluirProjeto:
         if retorno[0]:
             nome = self.nome_var.get()
             valor1 = self.valor_var.get()
+            valor1conv = datetime.strptime(valor1, '%d/%m/%Y').date()
             valor2 = self.valor_var2.get()
+            valor2conv = datetime.strptime(valor2, '%d/%m/%Y').date()
             # Inserir os dados no banco de dados
             cmd = "INSERT INTO tb_projeto (nme_projeto, dta_ini_projeto, dta_fim_projeto) VALUES (%s, %s, %s)"
             if valor2 == '':
-                id = janela_mestre.sql.insert(cmd, (nome, valor1, None))
+                id = janela_mestre.sql.insert(cmd, (nome, valor1conv, None))
             else:
-                id = janela_mestre.sql.insert(cmd, (nome, valor1,valor2))
+                id = janela_mestre.sql.insert(cmd, (nome, valor1conv,valor2conv))
             # Fechar a janela pop-up
             self.popup.destroy()
-        '''else:
+        else:
             messagebox.showerror("Erro: Campo(s) obrigatório(s)",
                                  "O(s) seguinte(s) campo(s) é/são obrigatório(s):\n" + retorno[1])
-'''
