@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
-from adodbapi import dateconverter
+import dateconverter
 
 import util.validate as val
 from tkcalendar import DateEntry
@@ -33,19 +33,21 @@ class IncluirProjeto:
         self.et_nome.grid(row=1, column=1, columnspan=2, padx=PADX, pady=PADY)
 
         # Terceira linha - Receber a data do projeto
-        lb_valor = tk.Label(self.popup, text="Data inicial do projeto", font='Helvetica 12 bold', fg='blue')
+        lb_valor = tk.Label(self.popup, text="Data inicial do projeto (ano/mês/dia)", font='Helvetica 12 bold', fg='blue')
         lb_valor.grid(row=2, column=0, padx=PADX, pady=PADY)
 
-        lb_valor2 = tk.Label(self.popup, text="Data final do projeto", font='Helvetica 12 bold', fg='blue')
+        lb_valor2 = tk.Label(self.popup, text="Data final do projeto (ano/mês/dia)", font='Helvetica 12 bold', fg='blue')
         lb_valor2.grid(row=3, column=0, padx=PADX, pady=PADY)
 
         self.valor_var = tk.StringVar()
-        self.et_valor = ttk.Entry(self.popup, textvariable=self.valor_var, font='Helvetica 16 bold', foreground='green', width=10)
+        self.et_valor = DateEntry(self.popup, textvariable=self.valor_var, font='Helvetica 16 bold', foreground='green',
+                                  width=10, date_pattern='yyyy/mm/dd')
         self.obrigatorios.append([self.et_valor, lb_valor.cget('text')])
         self.et_valor.grid(row=2, column=1, columnspan=2, padx=PADX, pady=PADY, sticky="W")
 
         self.valor_var2 = tk.StringVar()
-        self.et_valor2 = DateEntry(self.popup, textvariable=self.valor_var2, font='Helvetica 16 bold', foreground='green', width=10, date_pattern='dd/mm/yyyy')
+        self.et_valor2 = DateEntry(self.popup, textvariable=self.valor_var2, font='Helvetica 16 bold', foreground='green',
+                                   width=10, date_pattern='yyyy/mm/dd')
         self.et_valor2.grid(row=3, column=1, columnspan=2, padx=PADX, pady=PADY, sticky="W")
 
         # Quarta linha - Botão para incluir uma nova função
