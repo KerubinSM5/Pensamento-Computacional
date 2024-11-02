@@ -4,6 +4,9 @@ from tkinter import messagebox
 from util.db import SQL
 from c_funcao import IncluirFuncao
 
+from d_funcao import ExcluirFuncao
+from u_funcao import AlterarFuncao
+
 
 class CRUDFuncao(tk.Tk):
     def __init__(self):
@@ -90,10 +93,22 @@ class CRUDFuncao(tk.Tk):
         self.limpar_tabela()
 
     def alterar(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            u = AlterarFuncao(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar a função")
 
     def excluir(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            d = ExcluirFuncao(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar a função")
 
 
 if __name__ == '__main__':

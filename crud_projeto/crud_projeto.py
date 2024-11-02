@@ -4,6 +4,9 @@ from tkinter import messagebox
 from util.db import SQL
 from c_projeto import IncluirProjeto
 
+from u_projeto import AlterarProjeto
+from d_projeto import ExcluirProjeto
+
 class CRUDProjeto(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -95,10 +98,22 @@ class CRUDProjeto(tk.Tk):
         self.limpar_tabela()
 
     def alterar(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            u = AlterarProjeto(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar o projeto")
 
     def excluir(self):
-        pass
+        idt = self.pegar_idt()
+        if idt != 0:
+            d = ExcluirProjeto(self, idt)
+            self.et_nome.delete(0, tk.END)
+            self.limpar_tabela()
+        else:
+            messagebox.showerror("Erro: Escolha uma função", "Marque uma linha da tabela para selecionar a função")
 
 
 if __name__ == '__main__':
