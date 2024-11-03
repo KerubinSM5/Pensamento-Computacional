@@ -6,16 +6,19 @@ class SQL:
                                            user=usr,
                                            password=pwd,
                                            database=esquema)
+    #Define os parâmetros de conexão padrão e estabelece a conexão com o banco de dados usando esses parâmetros e
+    #armazena a conexão em self.cnx (disponível para todos os métodos e funções)
 
     def __del__(self):
         self.cnx.close()
+    #metodo destrutivo, encerra o processo de conexão com o banco de dados.
 
-    def insert(self, comando, params=()):
+    def insert(self, comando, params=()): #Realiza uma o operação de insert no banco de dados.Recebe o comando SQL(comando) e parâmetros opcionais (params)
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         self.cnx.commit()
-        idt = cs.lastrowid #retorna o numero de registro do objeto inserido
-        cs.close() #libera o recurso *
+        idt = cs.lastrowid
+        cs.close()
         return idt
 
     def upd_del(self, comando, params=()): #Realiza o Update e Delete | retorna número de linhas afetadas
@@ -26,26 +29,26 @@ class SQL:
         cs.close()
         return num
 
-    def get_cursor(self, comando, params=()):
+    def get_cursor(self, comando, params=()): #Recupera um cursor para executar consultas que podem retornar dados
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         return cs
 
-    def get_int(self, comando, params=()):
+    def get_int(self, comando, params=()): #Executa uma consulta que retorna um unico valor inteiro
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         ret = int(cs.fetchone()[0])
         cs.close()
         return ret
 
-    def get_float(self, comando, params=()):
+    def get_float(self, comando, params=()): #Retorna um valor tipo float
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         ret = float(cs.fetchone()[0])
         cs.close()
         return ret
 
-    def get_date(self, comando, params=()):
+    def get_date(self, comando, params=()): #Recupera uma data de um resultado e a formata no padrão dd/mm/aaaa
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         data = cs.fetchone()[0]
@@ -53,7 +56,7 @@ class SQL:
         cs.close()
         return ret
 
-    def get_time(self, comando, params=()):
+    def get_time(self, comando, params=()): #Recupera uma hora de um resultado e a formata no padrão hh:mm:ss.
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         hora = cs.fetchone()[0]
@@ -65,14 +68,14 @@ class SQL:
         cs.close()
         return ret
 
-    def get_string(self, comando, params=()):
+    def get_string(self, comando, params=()): #Recupera/Retorna um valor textual de um resultado.
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         ret = str(cs.fetchone()[0])
         cs.close()
         return ret
 
-    def get_object(self, comando, params=()):
+    def get_object(self, comando, params=()): #Recupera/Retorna um registro como um dicionário.
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         dados = cs.fetchone()
@@ -84,7 +87,7 @@ class SQL:
         cs.close()
         return dic
 
-    def get_list(self, comando, params=()):
+    def get_list(self, comando, params=()): #Executa uma consulta SQL, recupera todos os registros e retorna os resultados em uma lista de dicionários
         cs = self.cnx.cursor()
         cs.execute(comando, params)
         md = cs.description
